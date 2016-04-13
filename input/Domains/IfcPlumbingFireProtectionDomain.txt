@@ -1,0 +1,4 @@
+IfcFireSuppressionTerminalType
+IfcSanitaryTerminalType
+IfcStackTerminalType
+IfcWasteTerminalType

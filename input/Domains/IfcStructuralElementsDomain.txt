@@ -1,0 +1,10 @@
+IfcBuildingElementComponent
+IfcBuildingElementPart
+IfcFooting
+IfcPile
+IfcReinforcementDefinitionProperties
+IfcReinforcingBar
+IfcReinforcingElement
+IfcReinforcingMesh
+IfcTendon
+IfcTendonAnchor
