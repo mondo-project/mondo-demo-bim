@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.mondo.cstudy.bim.client.feature_1.0.0.qualifier.jar" id="org.mondo.cstudy.bim.client.feature" version="1.0.0.qualifier">
+      <category name="org.mondo.cstudy.bim.update.client"/>
+   </feature>
+   <feature url="features/org.mondo.cstudy.bim.server.feature_1.0.0.qualifier.jar" id="org.mondo.cstudy.bim.server.feature" version="1.0.0.qualifier">
+      <category name="org.mondo.cstudy.bim.update.server"/>
+   </feature>
+
+   <category-def name="org.mondo.cstudy.bim.update.client" label="MONDO Collaboration BIM Client"/>
+   <category-def name="org.mondo.cstudy.bim.update.server" label="MONDO Collaboration BIM Server"/>
+</site>
