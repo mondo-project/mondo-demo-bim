@@ -1,0 +1,21 @@
+package collab.ifc.rules
+
+import "http://buildingsmart.ifc2x3tc1.ecore"
+import "http://www.eclipse.org/emf/2002/Ecore"
+
+pattern objectNotStorey(related : EObject) {
+	neg find storeyRelated(related);
+}
+
+pattern objectStorey(storey : IfcBuildingStorey) {
+	IfcBuildingStorey.Name(storey, "Story 10");
+}
+
+pattern storeyRelated(related : EObject) {
+	IfcBuildingStorey.Name(storey, "Story 10");
+	IfcRelContainedInSpatialStructure.RelatedElements(temp, related);
+	IfcRelContainedInSpatialStructure.RelatingStructure(temp,storey);
+} or {
+	IfcBuildingStorey.Name(storey, "Story 10");
+	IfcRelContainedInSpatialStructure.RelatingStructure(related,storey);
+}

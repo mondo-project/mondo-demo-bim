@@ -1,0 +1,14 @@
+user alice
+user bob
+
+policy ifc_rules first-applicable {
+	
+	rule storey permit RW to alice {
+		query "collab.ifc.rules.objectStorey"
+	}
+	
+	rule notStoreyRelated deny RW to alice {
+		query "collab.ifc.rules.objectNotStorey"
+	}
+	
+}
