@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated ifc2x3tc1 -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="org.bimserver.models.ifc2x3tc1.presentation.Ifc2x3tc1ModelWizardID"
+            name="%_UI_Ifc2x3tc1ModelWizard_label"
+            class="org.bimserver.models.ifc2x3tc1.presentation.Ifc2x3tc1ModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/Ifc2x3tc1ModelFile.gif">
+         <description>%_UI_Ifc2x3tc1ModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated ifc2x3tc1 -->
+      <editor
+            id="org.bimserver.models.ifc2x3tc1.presentation.Ifc2x3tc1EditorID"
+            name="%_UI_Ifc2x3tc1Editor_label"
+            icon="icons/full/obj16/Ifc2x3tc1ModelFile.gif"
+            extensions="ifc"
+            class="org.bimserver.models.ifc2x3tc1.presentation.Ifc2x3tc1Editor"
+            contributorClass="org.bimserver.models.ifc2x3tc1.presentation.Ifc2x3tc1ActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated ifc2x3tc1 -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="org.bimserver.models.geometry.presentation.GeometryModelWizardID"
+            name="%_UI_GeometryModelWizard_label"
+            class="org.bimserver.models.geometry.presentation.GeometryModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/GeometryModelFile.gif">
+         <description>%_UI_GeometryModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated ifc2x3tc1 -->
+      <editor
+            id="org.bimserver.models.geometry.presentation.GeometryEditorID"
+            name="%_UI_GeometryEditor_label"
+            icon="icons/full/obj16/GeometryModelFile.gif"
+            extensions="geometry"
+            class="org.bimserver.models.geometry.presentation.GeometryEditor"
+            contributorClass="org.bimserver.models.geometry.presentation.GeometryActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

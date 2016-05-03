@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/antlr-2.7.7.jar"/>
+	<classpathentry kind="lib" path="lib/antlr-3.1.1-runtime.jar"/>
+	<classpathentry kind="lib" path="lib/antlr-3.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/bimserver-1.4.0-FINAL-2015-08-25-buildingSMARTLibrary.jar"/>
+	<classpathentry kind="lib" path="lib/bimserver-1.4.0-FINAL-2015-08-25-ifc.jar" sourcepath="/home/vialpando/Desktop/BIMserver-1.4.0-FINAL-2015-08-25"/>
+	<classpathentry kind="lib" path="lib/bimserver-1.4.0-FINAL-2015-08-25-ifcplugins.jar" sourcepath="/home/vialpando/Desktop/BIMserver-1.4.0-FINAL-2015-08-25"/>
+	<classpathentry kind="lib" path="lib/bimserver-1.4.0-FINAL-2015-08-25-shared.jar" sourcepath="/home/vialpando/Desktop/BIMserver-1.4.0-FINAL-2015-08-25"/>
+	<classpathentry kind="lib" path="lib/bimserver-1.4.0-FINAL-2015-08-25.jar" sourcepath="/home/vialpando/Desktop/BIMserver-1.4.0-FINAL-2015-08-25"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/gson-2.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/guava-18.0.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-annotations-2.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-core-2.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-databind-2.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/javassist.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.6.2.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.6.2.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
