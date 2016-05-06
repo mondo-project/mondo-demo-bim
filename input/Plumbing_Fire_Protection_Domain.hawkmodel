@@ -1,0 +1,27 @@
+#
+#Fri May 06 12:19:51 WEST 2016
+hawk.queryLanguage=
+hawk.subscribe=false
+hawk.loadingMode=GREEDY
+hawk.instance=myhawkIFC3
+hawk.split=true
+hawk.pageSize=0
+hawk.effectiveMetamodel.excludes0.2.slots=*
+hawk.effectiveMetamodel.excludes0.1.slots=*
+hawk.effectiveMetamodel.excludes0.0.slots=*
+hawk.effectiveMetamodel.excludes0.3=IfcWasteTerminalType
+hawk.effectiveMetamodel.excludes0.2=IfcFireSuppressionTerminalType
+hawk.effectiveMetamodel.excludes0.1=IfcStackTerminalType
+hawk.effectiveMetamodel.excludes0.0=IfcSanitaryTerminalType
+hawk.effectiveMetamodel.excludes0=http\://buildingsmart.ifc2x3tc1.ecore
+hawk.effectiveMetamodel.excludes0.3.slots=*
+hawk.files=*
+hawk.thriftProtocol=TUPLE
+hawk.query=
+hawk.password=
+hawk.subscriptionDurability=DEFAULT
+hawk.url=http\://127.0.0.1\:8080/thrift/hawk/tuple
+hawk.clientID=mondo
+hawk.defaultNamespaces=http\://buildingsmart.ifc2x3tc1.ecore
+hawk.repository=*
+hawk.username=
