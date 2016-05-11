@@ -1,14 +1,23 @@
 user alice
 user bob
+user cecile
+user denis
+
+group Architects {alice}
+group HVAC_spec {bob}
+group FPP_spec {cecile}
+group Electrical_spec {denis}
 
 policy ifc_rules first-applicable {
 	
-	rule storey permit RW to alice {
-		query "collab.ifc.rules.objectStorey"
+	rule hvac deny RW to Architects, FPP_spec, Electrical_spec {
+		query "collab.ifc.rules.objectHVAC"
 	}
-	
-	rule notStoreyRelated deny RW to alice {
-		query "collab.ifc.rules.objectNotStorey"
+	rule plumbing deny RW to Architects, HVAC_spec, Electrical_spec {
+		query "collab.ifc.rules.objectPlumbing"
+	}
+	rule electric deny RW to Architects, FPP_spec, HVAC_spec {
+		query "collab.ifc.rules.objectElectric"
 	}
 	
 }

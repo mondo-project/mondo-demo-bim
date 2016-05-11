@@ -1,4 +1,7 @@
-user alice user bob
+user alice
+user bob
+user cecile
+user denis
 
 locks {
 	

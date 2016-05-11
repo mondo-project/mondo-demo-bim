@@ -8,7 +8,6 @@ Export-Package: collab.ifc.rules,
 Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.incquery.runtime,
  org.eclipse.xtext.xbase.lib,
- org.hawk.ifc,
  org.mondo.ifc.cstudy.metamodel,
  org.mondo.collaboration.security.lens;bundle-version="1.0.0",
  org.eclipse.viatra.modelobfuscator.runtime;bundle-version="0.7.0",
@@ -22,4 +21,5 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.emf.codegen.ecore;bundle-version="2.11.0",
  org.eclipse.incquery.runtime.evm;bundle-version="1.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: org.apache.log4j
+Import-Package: org.apache.log4j,
+ org.bimserver.models.ifc2x3tc1

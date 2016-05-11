@@ -1,10 +1,14 @@
 package collab.ifc.rules;
 
+import java.io.IOException;
+
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.incquery.patternlanguage.emf.EMFPatternLanguageStandaloneSetup;
+import org.eclipse.incquery.runtime.exception.IncQueryException;
 import org.eclipse.viatra.modelobfuscator.util.StringObfuscator;
 import org.mondo.collaboration.security.lens.arbiter.SecurityArbiter;
 import org.mondo.collaboration.security.lens.bx.offline.OfflineCollaborationSession;
@@ -20,23 +24,37 @@ import org.mondo.ifc.cstudy.metamodel.IFCUniqueIdSchemeFactory;
 
 public class Main {
 
-	public static final String EIQ_PATH = "/home/vialpando/Eclipse/MondoOnline/workspace/collab.ifc.rules/src/collab/ifc/rules/rules.eiq";
-	public static final String MPBL_PATH = "/home/vialpando/Eclipse/MondoOnline/workspace/collab.ifc.rules/src/collab/ifc/rules/lock.mpbl";
-	public static final String MACL_PATH = "/home/vialpando/Eclipse/MondoOnline/workspace/collab.ifc.rules/src/collab/ifc/rules/rules.macl";
-	public static final String FILE_PATH = "/home/vialpando/Desktop/Arboleda_Bldg-Elect.ifc";
-	public static final String FILE_PATH_FRONT = "/home/vialpando/Desktop/Arboleda_Bldg-Elect-front.ifc";
+	public static final String USER_NAME = "bob";
+	public static final String ROOT_PATH = "/home/meres/git/mondo-demo-bim/demo/";
+	
+	public static final String EIQ_PATH = ROOT_PATH + "collab.ifc.rules/src/collab/ifc/rules/rules.eiq";
+	public static final String MPBL_PATH = ROOT_PATH + "collab.ifc.rules/src/collab/ifc/rules/lock.mpbl";
+	public static final String MACL_PATH = ROOT_PATH + "collab.ifc.rules/src/collab/ifc/rules/rules.macl";
+	public static final String MODEL_STEM = ROOT_PATH + "collab.ifc.rules/model/Bien-Zenker_Jasmin-Sun-AC14-V2";
+	
+	public static final String MODEL_EXT = "ifc";
+	public static final String FILE_PATH_GOLD = MODEL_STEM + "." + MODEL_EXT;
+	public static final String FILE_PATH_FRONT = MODEL_STEM + "-" + USER_NAME + "." + MODEL_EXT;
 	
 	public static void main(String[] args) throws Exception {
-		
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ifc", new IFCResourceFactory());
+		long startTime = System.currentTimeMillis();
+		doTest();
+		System.out.println("Finished in " + (System.currentTimeMillis() - startTime) + " ms");
+	}
+
+	public static void doTest() throws IncQueryException, IOException {
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(MODEL_EXT, new IFCResourceFactory());
 		
 		MACLRuleStandaloneSetup.doSetup();
 		MondoPropertyBasedLockingStandaloneSetup.doSetup();
 		AccessControlLanguageStandaloneSetup.doSetup();
 		EMFPatternLanguageStandaloneSetup.doSetup();
 		
+		//Ifc2x3tc1Factory.eINSTANCE.getEPackage();
+		//EPackage.Registry.INSTANCE.put(org.bimserver.models.ifc2x3tc1.Ifc2x3tc1Package.eINSTANCE.getNsURI(), org.bimserver.models.ifc2x3tc1.Ifc2x3tc1Package.eINSTANCE);
+		
 		ResourceSet goldResourceSet = new ResourceSetImpl();
-		URI goldConfinementUri = URI.createFileURI(FILE_PATH);
+		URI goldConfinementUri = URI.createFileURI(FILE_PATH_GOLD);
 		IFCResource goldResource = (IFCResource) goldResourceSet.getResource(goldConfinementUri, true);
 				
 		ResourceSet frontResourceSet = new ResourceSetImpl();
@@ -52,7 +70,7 @@ public class Main {
 		Resource mpbl = policyResourceSet.getResource(mpblConfinementUri, true);
 		
 		AccessControlModel accessControlModel = (AccessControlModel)macl.getContents().get(0);
-		User user = SecurityArbiter.getUserByName(accessControlModel, "alice");
+		User user = SecurityArbiter.getUserByName(accessControlModel, USER_NAME);
 		
 		OfflineCollaborationSession session = new OfflineCollaborationSession(
 				goldConfinementUri, goldResourceSet, 

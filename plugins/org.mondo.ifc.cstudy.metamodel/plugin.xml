@@ -11,7 +11,7 @@
    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
-            class="org.bimserver.models.ifc2x3tc1.impl.Ifc2x3tc1PackageImpl"
+            class="org.bimserver.models.ifc2x3tc1.Ifc2x3tc1Package"
             genModel="model/ifc2x3tc1.genmodel"
             uri="http://buildingsmart.ifc2x3tc1.ecore">
       </package>

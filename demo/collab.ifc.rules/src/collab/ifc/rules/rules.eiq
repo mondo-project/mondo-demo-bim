@@ -3,6 +3,20 @@ package collab.ifc.rules
 import "http://buildingsmart.ifc2x3tc1.ecore"
 import "http://www.eclipse.org/emf/2002/Ecore"
 
+
+pattern objectHVAC(obj) {
+	IfcAirTerminalType(obj);
+}
+
+pattern objectPlumbing(obj) {
+	IfcSanitaryTerminalType(obj);
+}
+pattern objectElectric(obj) {
+	IfcElectricApplianceType(obj);
+}
+
+
+/* 
 pattern objectNotStorey(related : EObject) {
 	neg find storeyRelated(related);
 }
@@ -19,3 +33,4 @@ pattern storeyRelated(related : EObject) {
 	IfcBuildingStorey.Name(storey, "Story 10");
 	IfcRelContainedInSpatialStructure.RelatingStructure(related,storey);
 }
+* */
