@@ -101,7 +101,7 @@ public class Main {
 		System.out.println("Session init: " + (currentTime - lastTime) + " ms");
 		lastTime = currentTime;
 		
-		session.doPutbackAndSave(); //doGetAndSave();
+		session.doGetAndSave(); //doGetAndSave();
 		
 		currentTime = System.currentTimeMillis();
 		System.out.println("Transformation: " + (currentTime - lastTime) + " ms");
