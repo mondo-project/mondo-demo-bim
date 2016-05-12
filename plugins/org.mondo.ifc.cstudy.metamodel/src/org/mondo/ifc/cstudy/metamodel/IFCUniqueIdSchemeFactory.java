@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.activation.UnsupportedDataTypeException;
 
 import org.bimserver.emf.IdEObject;
+import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
@@ -14,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.mondo.collaboration.security.lens.correspondence.ComposableIDFunction;
 import org.mondo.collaboration.security.lens.correspondence.DefaultEMFUniqueIDFunctions;
 import org.mondo.collaboration.security.lens.correspondence.EObjectCorrespondence.UniqueIDScheme;
@@ -41,10 +43,14 @@ public class IFCUniqueIdSchemeFactory implements UniqueIDSchemeFactory {
 				if(idEObject.getExpressId() == -1) {
 					try {
 						Entry entry = findUsage(idEObject);
-						String expressID = "type:" + idEObject.eClass().getName() 
-								+ " parent:" + entry.idEObject.getExpressId()
-								+ " feature: " + entry.feature.getName()
-								+ " value:" + findValue(idEObject);
+						if (entry == null)
+							return idEObject;
+						String expressID = String.format(
+								"(\"%s\":%s <-%s- %s)", 
+								findValue(idEObject),
+								idEObject.eClass().getName(),
+								entry.feature.getName(),
+								apply(entry.idEObject));
 						return expressID;
 					} catch (UnsupportedDataTypeException e) {
 						e.printStackTrace();
@@ -64,18 +70,20 @@ public class IFCUniqueIdSchemeFactory implements UniqueIDSchemeFactory {
 		Map<IdEObject, Entry> cacheParentMapping;
 		private Entry findUsage(IdEObject obj) throws UnsupportedDataTypeException {
 			if(cacheParentMapping == null) {
-				buildParentMapping(obj.eResource());
+				buildParentMapping(obj.eResource().getResourceSet());
 			}
 			return cacheParentMapping.get(obj);
 		}
 
-		private void buildParentMapping(Resource eResource) {
+		private void buildParentMapping(ResourceSet eResourceSet) {
 			cacheParentMapping = Maps.newHashMap();
-			TreeIterator<EObject> iterator = eResource.getAllContents();
+			TreeIterator<Notifier> iterator = eResourceSet.getAllContents();
 			while(iterator.hasNext()) {
-				IdEObject current = (IdEObject) iterator.next();
-				if(current.getExpressId() != -1) {
-					EList<EReference> features = current.eClass().getEReferences();
+				Notifier next = iterator.next();
+				if (next instanceof IdEObject) {
+					IdEObject current = (IdEObject) next;
+//					if(current.getExpressId() != -1) {
+					EList<EReference> features = current.eClass().getEAllReferences();
 					for (EReference feature : features) {
 						if(feature.isMany()) {
 							EList<?> eList = (EList<?>) current.eGet(feature);
@@ -87,6 +95,7 @@ public class IFCUniqueIdSchemeFactory implements UniqueIDSchemeFactory {
 							putParentMap(current, feature, (IdEObject) current.eGet(feature));
 						}
 					}
+//					}
 				}
 			}
 		}

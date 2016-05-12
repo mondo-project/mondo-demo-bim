@@ -37,18 +37,24 @@ public class Main {
 	public static final String FILE_PATH_FRONT = MODEL_STEM + "-" + USER_NAME + "." + MODEL_EXT;
 	
 	public static void main(String[] args) throws Exception {
-		long startTime = System.currentTimeMillis();
 		doTest();
-		System.out.println("Finished in " + (System.currentTimeMillis() - startTime) + " ms");
 	}
 
 	public static void doTest() throws IncQueryException, IOException {
+		long startTime = System.currentTimeMillis();
+		long lastTime = startTime;
+		long currentTime;
+		
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(MODEL_EXT, new IFCResourceFactory());
 		
 		MACLRuleStandaloneSetup.doSetup();
 		MondoPropertyBasedLockingStandaloneSetup.doSetup();
 		AccessControlLanguageStandaloneSetup.doSetup();
 		EMFPatternLanguageStandaloneSetup.doSetup();
+		
+		currentTime = System.currentTimeMillis();
+		System.out.println("Static setup: " + (currentTime - lastTime) + " ms");
+		lastTime = currentTime;
 		
 		//Ifc2x3tc1Factory.eINSTANCE.getEPackage();
 		//EPackage.Registry.INSTANCE.put(org.bimserver.models.ifc2x3tc1.Ifc2x3tc1Package.eINSTANCE.getNsURI(), org.bimserver.models.ifc2x3tc1.Ifc2x3tc1Package.eINSTANCE);
@@ -61,6 +67,10 @@ public class Main {
 		URI frontConfinementUri = URI.createFileURI(FILE_PATH_FRONT);
 		IFCResource frontResource = (IFCResource) frontResourceSet.getResource(frontConfinementUri, true);
 		
+		currentTime = System.currentTimeMillis();
+		System.out.println("Opened instance models: " + (currentTime - lastTime) + " ms");
+		lastTime = currentTime;
+		
 		ResourceSet policyResourceSet = new ResourceSetImpl();
 		URI eiqConfinementUri = URI.createURI(EIQ_PATH);
 		Resource eiq = policyResourceSet.getResource(eiqConfinementUri, true);
@@ -72,6 +82,11 @@ public class Main {
 		AccessControlModel accessControlModel = (AccessControlModel)macl.getContents().get(0);
 		User user = SecurityArbiter.getUserByName(accessControlModel, USER_NAME);
 		
+		currentTime = System.currentTimeMillis();
+		System.out.println("Policy setup: " + (currentTime - lastTime) + " ms");
+		lastTime = currentTime;
+		
+		
 		OfflineCollaborationSession session = new OfflineCollaborationSession(
 				goldConfinementUri, goldResourceSet, 
 				frontConfinementUri, frontResourceSet,
@@ -82,6 +97,16 @@ public class Main {
 				new StringObfuscator("seed", "salt")
 				);
 
-		session.doGetAndSave();
+		currentTime = System.currentTimeMillis();
+		System.out.println("Session init: " + (currentTime - lastTime) + " ms");
+		lastTime = currentTime;
+		
+		session.doPutbackAndSave(); //doGetAndSave();
+		
+		currentTime = System.currentTimeMillis();
+		System.out.println("Transformation: " + (currentTime - lastTime) + " ms");
+		lastTime = currentTime;
+		
+		System.out.println("Finished in " + (System.currentTimeMillis() - startTime) + " ms");
 	}
 }
