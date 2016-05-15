@@ -66,6 +66,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.incquery.runtime.matchers.tuple.FlatTuple;
+import org.eclipse.incquery.runtime.matchers.tuple.Tuple;
 import org.mondo.collaboration.security.lens.context.MondoLensScope;
 import org.mondo.collaboration.security.lens.context.keys.CorrespondenceKey;
 import org.slf4j.Logger;
@@ -504,7 +505,11 @@ public class IFCResource extends ResourceImpl {
 			
 			Object referenceObject;
 			if(isGold) {
-				referenceObject = scope.getCorrespondenceTables().get(CorrespondenceKey.EOBJECT).getTuplesForSeed(new FlatTuple(object, null)).iterator().next().get(1);
+				Set<Tuple> correspondenceTuple = scope.getCorrespondenceTables().get(CorrespondenceKey.EOBJECT).getTuplesForSeed(new FlatTuple(object, null));
+				if (correspondenceTuple.isEmpty())
+					referenceObject = object;
+				else
+					referenceObject = correspondenceTuple.iterator().next().get(1);
 			} else {
 				referenceObject = scope.getCorrespondenceTables().get(CorrespondenceKey.EOBJECT).getTuplesForSeed(new FlatTuple(null, object)).iterator().next().get(0);
 			}
