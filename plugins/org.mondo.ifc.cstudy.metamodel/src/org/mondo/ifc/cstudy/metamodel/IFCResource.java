@@ -91,6 +91,7 @@ public class IFCResource extends ResourceImpl {
 	
 	public IFCResource(URI uri) {
 		this.uri = uri;
+		f = instantiateFile();
 	}
 
 	@Override
@@ -130,14 +131,13 @@ public class IFCResource extends ResourceImpl {
 	
 	@Override
 	public void load(Map<?, ?> options) throws IOException {
-		f = createFile();
 		if(f.exists()) {
 			calculateFormat(f);
 			doLoad(f);
 		}
 	}
 	
-	private File createFile() {
+	private File instantiateFile() {
 		File f;
 		try {
 			if((!uri.isRelative() && uri.isPlatform())) {
